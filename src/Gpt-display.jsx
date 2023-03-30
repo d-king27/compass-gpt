@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 function TextDisplay() {
   const [inputText, setInputText] = useState('');
   const [chatText, setChatText] = useState('');
+  const [sources, setSources] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (event) => {
@@ -27,6 +28,7 @@ function TextDisplay() {
       .then((data) => {
         setLoading(false)
         setChatText(data.answer)
+        setSources(data.sources)
         console.log("data: ", data)})
       .catch(error => console.log(error));
   };
@@ -36,6 +38,7 @@ function TextDisplay() {
     <div>
       <TextField fullwidth style={{width:"400px"}}  type="text" value={inputText} onChange={handleChange} />
       <Button variant="contained" onClick={handleSubmit} sx={{margin:"5px"}}>Submit</Button>
+      <p>{sources}</p>
       <p>{loading ? '..........': chatText }</p>
     </div>
   );
