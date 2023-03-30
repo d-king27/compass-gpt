@@ -15,17 +15,18 @@ function TextDisplay() {
     event.preventDefault();
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: inputText })
+      headers: { 'Content-Type': 'application/json',
+      "access-control-allow-origin": "*" },
+      body: JSON.stringify({ question: inputText })
     };
     setLoading(true)
-    fetch('https://jsonplaceholder.typicode.com/posts', requestOptions)
+    fetch('http://localhost:5000/query_docs', requestOptions)
       .then((response) => {
         console.log("response: ", response)
         return response.json()})
       .then((data) => {
         setLoading(false)
-        setChatText(data.text)
+        setChatText(data.answer)
         console.log("data: ", data)})
       .catch(error => console.log(error));
   };
